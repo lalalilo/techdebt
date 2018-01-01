@@ -1,0 +1,30 @@
+{
+  "name": "techdebt",
+  "version": "1.0.0",
+  "description": "An attempt to show technical debt to sponsors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lalalilo/techdebt.git"
+  },
+  "keywords": [
+    "node",
+    "datadog",
+    "technical",
+    "debt"
+  ],
+  "author": "Nicolas Girault",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lalalilo/techdebt/issues"
+  },
+  "homepage": "https://github.com/lalalilo/techdebt#readme",
+  "dependencies": {
+    "dogapi": "^2.8.0",
+    "lodash.endswith": "^4.2.1",
+    "npm-check": "^5.5.2"
+  }
+}
