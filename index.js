@@ -37,7 +37,12 @@ const countLinesWithExtension = (root, extension) => {
 
 const sendMetrics = (metrics, options) => {
   dogapi.initialize(options)
-  return dogapi.metric.send_all(metrics)
+  return new Promise((resolve, reject) => {
+    dogapi.metric.send_all(metrics, (err, result) => {
+      if (err) return reject(err)
+      return resolve(result)
+    })
+  })
 }
 
 module.exports = {

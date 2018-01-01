@@ -1,6 +1,6 @@
 {
   "name": "techdebt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An attempt to show technical debt to sponsors",
   "main": "index.js",
   "scripts": {
