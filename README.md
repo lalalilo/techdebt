@@ -10,13 +10,14 @@ npm install --save-dev techdebt
 
 ## Get started
 
-This package is nothing more than an aggregation of some helpers to get, save and display metrics.
+This package is nothing more than an aggregation of helpers to get, save and display metrics.
 
-You can easily write a small script that run metrics that reprensent your technical debt and run this script during continuous integration so that it updates a technical debt dashboard or Slack channel.
+It helps you to easily write a small script that computes metrics representing your technical debt. A good idea would be to run this script during continuous integration so that it updates a technical debt dashboard or Slack channel.
 
-### display the count of todos in Slack
+### Simple example: display the count of todos in Slack
 
 ```javascript
+const techdebt = require('techdebt')
 const slackClient = require('techdebt/clients/slack')
 const fsHelper = require('techdebt/helpers/fs')
 
@@ -26,27 +27,16 @@ slackClient.initialize({
   username: 'Techdebt bot'
 })
 
-const techdebtMetrics = [
+techdebt.run([
   {
-    // get should return your metric or a promise of your metric
-    get: () => {
-      const count = fsHelper.countRegex('src', /todo/gi)
-      return count
-    },
-    // format receives the `get` returned value. Then format your metric as you wish... for example here as a Slack attachment
+    get: () => fsHelper.countRegex('src', /todo/gi),
     format: (count) => ({
       title: 'Todos count in code',
       text: count
     })
   }
-]
-
-// run takes a table of metrics and returns a promise of formated metrics value
-techdebt.run(techdebtMetrics)
-.then(formatedMetrics => {
-  // do whatever you wants with this result. The techdebt slack client has a helper function to post attachments with a title.
-  return slackClient.post('Techdebt report', formatedMetrics)
-})
+])
+.then(formatedMetrics => slackClient.post('Techdebt report', formatedMetrics))
 .then(() => {
   return process.exit()
 })
@@ -58,11 +48,12 @@ techdebt.run(techdebtMetrics)
 
 todo: add screenshot
 
-### display the history of todos count in slack
+### More complex example: display the historic of todos count in Slack
 
 Sometimes it's useful to get the history of a metric and display it as a graph. To save a metric you can use any API that you like such as Google Spreadsheet API. The simplest API I found is to use [datadog API](https://www.datadoghq.com/) that allow to save metrics and take a snapshot of a graph.
 
 ```javascript
+const techdebt = require('techdebt')
 const slackClient = require('techdebt/clients/slack')
 const fsHelper = require('techdebt/helpers/fs')
 
@@ -76,20 +67,17 @@ datadogClient.initialize({
   app_key: 'xxx'
 })
 
-const techdebtMetrics = [
+techdebt.run([
   {
     get: () => {
       const count = fsHelper.countRegex('src', /todo/gi)
       return count
     },
-    // save is optional. It's called before format and allow you to save the metric on a third party tool such as datadog
     save: (count) => datadogClient.post('techdebt.todos', count),
     format: (count) => datadogClient.get('techdebt.todos', 3600 * 24 * 30)
       .then(snapshotUrl => ({ text: 'Todos in code', image_url: snapshotUrl }))
   }
-]
-
-techdebt.run(techdebtMetrics)
+])
 .then(formatedMetrics => slackClient.post('Techdebt report', formatedMetrics))
 .then(() => {
   return process.exit()
@@ -104,9 +92,9 @@ techdebt.run(techdebtMetrics)
 
 ## API doc
 
-### techdebt
+### main
 
-#### function run(metrics)
+#### techdebt.run(metrics)
 
 Takes an array of [metrics](#metrics) and return a promise of formated metrics.
 
