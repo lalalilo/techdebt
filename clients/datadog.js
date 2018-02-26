@@ -29,7 +29,7 @@ const get = (metric, period) => {
 const waitForResourceAvailable = (url, maxRetry) => {
   return new Promise((resolve, reject) => {
     if (maxRetry === 0) {
-      console.warn(`max retry reached for ${metric}`)
+      console.warn(`max retry reached`)
       return resolve()
     }
     request({ url }, (err, res) => {
