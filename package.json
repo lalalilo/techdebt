@@ -1,8 +1,11 @@
 {
   "name": "techdebt",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "An attempt to show technical debt to sponsors",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.9"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,9 +25,8 @@
     "url": "https://github.com/lalalilo/techdebt/issues"
   },
   "homepage": "https://github.com/lalalilo/techdebt#readme",
-  "dependencies": {
+  "optionalDependencies": {
     "dogapi": "^2.8.0",
-    "lodash.endswith": "^4.2.1",
     "npm-check": "^5.5.2"
   }
 }
