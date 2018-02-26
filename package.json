@@ -1,6 +1,6 @@
 {
   "name": "techdebt",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "An attempt to show technical debt to sponsors",
   "main": "index.js",
   "engines": {
@@ -28,5 +28,8 @@
   "optionalDependencies": {
     "dogapi": "^2.8.0",
     "npm-check": "^5.5.2"
+  },
+  "dependencies": {
+    "request": "^2.83.0"
   }
 }
