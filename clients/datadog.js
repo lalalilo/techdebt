@@ -28,7 +28,10 @@ const get = (metric, period) => {
 
 const waitForResourceAvailable = (url, maxRetry) => {
   return new Promise((resolve, reject) => {
-    if (maxRetry === 0) return reject(new Error('max retry reached'))
+    if (maxRetry === 0) {
+      console.warn(`max retry reached for ${metric}`)
+      return resolve()
+    }
     request({ url }, (err, res) => {
       if (err) return reject(err)
       // the resource is available for a while but without content
@@ -49,7 +52,10 @@ const getLastPointsCount = (metric, now) => {
 }
 const waitForMetricAvailable = (metric, lastPointsCount, now, maxRetry) => {
   return new Promise((resolve, reject) => {
-    if (maxRetry === 0) return reject(new Error('max retry reached'))
+    if (maxRetry === 0) {
+      console.warn(`max retry reached for ${metric}`)
+      return resolve()
+    }
     dogapi.metric.query(now - 1000, now + 1000, `${metric}{*}`, (err, res) => {
       if (err) return reject(err)
       if (res.series[0] && res.series[0].length > lastPointsCount) return resolve()

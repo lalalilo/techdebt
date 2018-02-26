@@ -1,10 +1,9 @@
 const run = (techdebtMetrics) => {
-  return Promise.all(techdebtMetrics.map(metric => metric.get().catch(console.error)))
+  return Promise.all(techdebtMetrics.map(metric => metric.get()))
   .then(metrics => {
     return Promise.all(
       metrics.map((metric, index) => {
         return techdebtMetrics[index].save && techdebtMetrics[index].save(metric)
-        .catch(console.error)
       })
     ).then(_ => metrics)
   })
