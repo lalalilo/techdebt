@@ -2,8 +2,8 @@ const request = require('request')
 
 let options = {}
 
-const initialize = (options) => {
-  options = options
+const initialize = (_options) => {
+  options = _options
 }
 
 const post = (text, attachments) => {

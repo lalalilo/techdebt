@@ -22,7 +22,7 @@ const slackClient = require('techdebt/clients/slack')
 const fsHelper = require('techdebt/helpers/fs')
 
 slackClient.initialize({
-  HOOK_URL: 'https://hooks.slack.com/services/xx/xx/xx',
+  hookUrl: 'https://hooks.slack.com/services/xx/xx/xx',
   channel: '#techdebt',
   username: 'Techdebt bot'
 })
@@ -46,11 +46,12 @@ techdebt.run([
 })
 ```
 
-todo: add screenshot
+![example result](https://github.com/lalalilo/techdebt/raw/master/doc/screenshot1.png "Example result")
+
 
 ### More complex example: display the historic of todos count in Slack
 
-Sometimes it's useful to get the history of a metric and display it as a graph. To save a metric you can use any API that you like such as Google Spreadsheet API. The simplest API I found is to use [datadog API](https://www.datadoghq.com/) that allow to save metrics and take a snapshot of a graph.
+Sometimes it's useful to get the history of a metric and display it as a graph. To save a metric you can use any API that you like. The simplest API I found is [datadog](https://www.datadoghq.com/) that allows to save metrics and take a snapshot of a graph of the metric.
 
 ```javascript
 const techdebt = require('techdebt')
@@ -58,7 +59,7 @@ const slackClient = require('techdebt/clients/slack')
 const fsHelper = require('techdebt/helpers/fs')
 
 slackClient.initialize({
-  HOOK_URL: 'https://hooks.slack.com/services/xx/xx/xx',
+  hookUrl: 'https://hooks.slack.com/services/xx/xx/xx',
   channel: '#techdebt',
   username: 'Techdebt bot'
 })
@@ -88,6 +89,7 @@ techdebt.run([
 })
 ```
 
+![example result](https://github.com/lalalilo/techdebt/raw/master/doc/screenshot2.png "Example result")
 
 
 ## API doc
@@ -96,7 +98,7 @@ techdebt.run([
 
 #### techdebt.run(metrics)
 
-Takes an array of [metrics](#metrics) and return a promise of formated metrics.
+Takes an array of [metrics](#metric) and return a promise of formated metrics.
 
 Example:
 
@@ -244,7 +246,7 @@ const packages = require('techdebt/helpers/packages')
 const techdebt = require('techdebt')
 
 slackClient.initialize({
-  HOOK_URL: 'https://hooks.slack.com/services/xx/xx/xx',
+  hookUrl: 'https://hooks.slack.com/services/xx/xx/xx',
   channel: '#techdebt',
   username: 'Techdebt bot'
 })
@@ -278,6 +280,9 @@ techdebt.run([
   return process.exit(1)
 })
 ```
+
+![example result](https://github.com/lalalilo/techdebt/raw/master/doc/screenshot3.png "Example result")
+
 
 #### fsHelper
 
@@ -324,7 +329,7 @@ const fsHelper = require('techdebt/helpers/fs')
 const techdebt = require('techdebt')
 
 slackClient.initialize({
-  HOOK_URL: 'https://hooks.slack.com/services/xx/xx/xx',
+  hookUrl: 'https://hooks.slack.com/services/xx/xx/xx',
   channel: '#techdebt',
   username: 'Techdebt bot'
 })
