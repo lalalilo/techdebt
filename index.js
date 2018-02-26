@@ -1,5 +1,5 @@
 const run = (techdebtMetrics) => {
-  Promise.all(techdebtMetrics.map(metric => metric.get()))
+  return Promise.all(techdebtMetrics.map(metric => metric.get()))
   .then(metrics => {
     return Promise.all(
       metrics.map((metric, index) => {
