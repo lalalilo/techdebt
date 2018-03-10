@@ -203,6 +203,31 @@ datadogClient.initialize({
 })
 ```
 
+#### Codecov
+
+##### codecovClient.initialize(options)
+
+```javascript
+const codecovClient = require('techdebt/clients/codecov')
+
+codecovClient.initialize({
+  accessToken: 'xxx', //required
+  repo: 'owner/repo', // required
+  branch: 'xxx' // required
+})
+```
+
+##### codecovClient.get()
+
+Return a promise on the last code coverage ratio.
+
+```javascript
+codecovClient.get()
+.then(({ timestamp, ratio }) => {
+  // ratio between 0 and 100
+})
+```
+
 ##### datadogClient.post(metricName, metricValue)
 
 Post a metric value that will be saved to datadog and wait for the metric to be fetchable (datadog has a delay in serving posted metrics).
