@@ -228,9 +228,11 @@ codecovClient.get()
 })
 ```
 
-##### datadogClient.post(metricName, metricValue)
+##### datadogClient.post(metricName, metricValue, timestamp)
 
 Post a metric value that will be saved to datadog and wait for the metric to be fetchable (datadog has a delay in serving posted metrics).
+
+The **timestamp** attribute is optional (default is now)
 
 It returns a promise that resolves when the metric is saved.
 

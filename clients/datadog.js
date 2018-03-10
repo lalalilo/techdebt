@@ -1,8 +1,8 @@
 const request = require('request')
 const dogapi = require('dogapi')
 
-const post = (metric, value) => {
-  const now = parseInt(new Date().getTime() / 1000, 10)
+const post = (metric, value, timestamp) => {
+  const now = timestamp || parseInt(new Date().getTime() / 1000, 10)
   return getLastPointsCount(metric, now).then(lastPointsCount => {
     return new Promise((resolve, reject) => {
       dogapi.metric.send(metric, [[now, value]], function(err, results) {
