@@ -14,7 +14,7 @@ This package is nothing more than an aggregation of helpers to get, save and dis
 
 It helps you to easily write a small script that computes metrics representing your technical debt. A good idea would be to run this script during continuous integration so that it updates a technical debt dashboard or Slack channel.
 
-### Simple example: display the count of todos in Slack
+### Simple example: display the todo comments in Slack
 
 ```javascript
 const techdebt = require('techdebt')
@@ -29,12 +29,13 @@ slackClient.initialize({
 
 techdebt.run([
   {
-    get: () => fsHelper.countRegex('src', /todo/gi),
-    format: (count) => ({
-      title: 'Todos count in code',
-      text: count
+    get: () => fsHelper.getRegexMatches('src', /todo(.*)/gi),
+    format: (matches) => ({
+      title: 'Todos in code',
+      text: matches.length > 0 : matches.join('\n') : 'No todos in code ☀️',
+      color: matches.length > 0 : 'warning' : 'good'
     })
-  }
+  },
 ])
 .then(formatedMetrics => slackClient.post('Techdebt report', formatedMetrics))
 .then(() => {
